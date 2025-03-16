@@ -57,9 +57,9 @@ function Projects() {
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Action</MenuItem>
-      <MenuItem onClick={closeMenu}>Another action</MenuItem>
-      <MenuItem onClick={closeMenu}>Something else</MenuItem>
+      <MenuItem onClick={closeMenu}>Create New</MenuItem>
+      <MenuItem onClick={closeMenu}>Edit</MenuItem>
+      <MenuItem onClick={closeMenu}>Delete</MenuItem>
     </Menu>
   );
 
@@ -72,7 +72,7 @@ function Projects() {
       <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="32px">
         <VuiBox mb="auto">
           <VuiTypography color="white" variant="lg" mb="6px" gutterBottom>
-            Projects
+            On-going interventions
           </VuiTypography>
           <VuiBox display="flex" alignItems="center" lineHeight={0}>
             <BsCheckCircleFill color="green" size="15px" />

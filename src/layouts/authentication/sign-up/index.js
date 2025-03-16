@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 import { useState } from "react";
 
@@ -49,23 +33,59 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgSignIn from "assets/images/signUpImage.png";
 
+
+import {useNavigate} from "react-router-dom"
+
+import api from "api";
+
+//import {useNavigate} from "react-router-dom"
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "constants";
+
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const method = "login";  // or define it based on your needs
+  const route = "/token/";  // adjust to your actual API endpoint
+
+    const handleSubmit = async (e) => {
+      setLoading(true);
+      e.preventDefault();
+
+
+      try {
+       
+        const res = await api.post(route, { username, password });
+
+
+        localStorage.setItem(ACCESS_TOKEN, res.data.access)
+        localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+       
+      } catch (error) {
+        alert(error)
+      }finally{
+        setLoading(false)
+      }
+      
+    }
+    
   return (
     <CoverLayout
       title="Welcome!"
       color="white"
       description="Use these awesome forms to login or create new account in your project for free."
       image={bgSignIn}
-      premotto="INSPIRED BY THE FUTURE:"
-      motto="THE VISION UI DASHBOARD"
+      premotto="Data driven"
+      motto="ETMS"
       cardContent
     >
       <GradientBorder borderRadius={borders.borderRadius.form} minWidth="100%" maxWidth="100%">
         <VuiBox
+        onSubmit={handleSubmit}
           component="form"
           role="form"
           borderRadius="inherit"
@@ -83,103 +103,9 @@ function SignIn() {
               fontSize: size.lg,
             })}
           >
-            Register with
+            Register
           </VuiTypography>
-          <Stack mb="25px" justifyContent="center" alignItems="center" direction="row" spacing={2}>
-            <GradientBorder borderRadius="xl">
-              <a href="#">
-                <IconButton
-                  transition="all .25s ease"
-                  justify="center"
-                  align="center"
-                  bg="rgb(19,21,54)"
-                  borderradius="15px"
-                  sx={({ palette: { secondary }, borders: { borderRadius } }) => ({
-                    borderRadius: borderRadius.xl,
-                    padding: "25px",
-                    backgroundColor: secondary.focus,
-                    "&:hover": {
-                      backgroundColor: rgba(secondary.focus, 0.9),
-                    },
-                  })}
-                >
-                  <Icon
-                    as={FaFacebook}
-                    w="30px"
-                    h="30px"
-                    sx={({ palette: { white } }) => ({
-                      color: white.focus,
-                    })}
-                  />
-                </IconButton>
-              </a>
-            </GradientBorder>
-            <GradientBorder borderRadius="xl">
-              <a href="#">
-                <IconButton
-                  transition="all .25s ease"
-                  justify="center"
-                  align="center"
-                  bg="rgb(19,21,54)"
-                  borderradius="15px"
-                  sx={({ palette: { secondary }, borders: { borderRadius } }) => ({
-                    borderRadius: borderRadius.xl,
-                    padding: "25px",
-                    backgroundColor: secondary.focus,
-                    "&:hover": {
-                      backgroundColor: rgba(secondary.focus, 0.9),
-                    },
-                  })}
-                >
-                  <Icon
-                    as={FaApple}
-                    w="30px"
-                    h="30px"
-                    sx={({ palette: { white } }) => ({
-                      color: white.focus,
-                    })}
-                  />
-                </IconButton>
-              </a>
-            </GradientBorder>
-            <GradientBorder borderRadius="xl">
-              <a href="#">
-                <IconButton
-                  transition="all .25s ease"
-                  justify="center"
-                  align="center"
-                  bg="rgb(19,21,54)"
-                  borderradius="15px"
-                  sx={({ palette: { secondary }, borders: { borderRadius } }) => ({
-                    borderRadius: borderRadius.xl,
-                    padding: "25px",
-                    backgroundColor: secondary.focus,
-                    "&:hover": {
-                      backgroundColor: rgba(secondary.focus, 0.9),
-                    },
-                  })}
-                >
-                  <Icon
-                    as={FaGoogle}
-                    w="30px"
-                    h="30px"
-                    sx={({ palette: { white } }) => ({
-                      color: white.focus,
-                    })}
-                  />
-                </IconButton>
-              </a>
-            </GradientBorder>
-          </Stack>
-          <VuiTypography
-            color="text"
-            fontWeight="bold"
-            textAlign="center"
-            mb="14px"
-            sx={({ typography: { size } }) => ({ fontSize: size.lg })}
-          >
-            or
-          </VuiTypography>
+     
           <VuiBox mb={2}>
             <VuiBox mb={1} ml={0.5}>
               <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
@@ -197,38 +123,15 @@ function SignIn() {
               )}
             >
               <VuiInput
-                placeholder="Your full name..."
+                placeholder="Your  username..."
                 sx={({ typography: { size } }) => ({
                   fontSize: size.sm,
+
                 })}
               />
             </GradientBorder>
           </VuiBox>
-          <VuiBox mb={2}>
-            <VuiBox mb={1} ml={0.5}>
-              <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-                Email
-              </VuiTypography>
-            </VuiBox>
-            <GradientBorder
-              minWidth="100%"
-              borderRadius={borders.borderRadius.lg}
-              padding="1px"
-              backgroundImage={radialGradient(
-                palette.gradients.borderLight.main,
-                palette.gradients.borderLight.state,
-                palette.gradients.borderLight.angle
-              )}
-            >
-              <VuiInput
-                type="email"
-                placeholder="Your email..."
-                sx={({ typography: { size } }) => ({
-                  fontSize: size.sm,
-                })}
-              />
-            </GradientBorder>
-          </VuiBox>
+      
           <VuiBox mb={2}>
             <VuiBox mb={1} ml={0.5}>
               <VuiTypography component="label" variant="button" color="white" fontWeight="medium">

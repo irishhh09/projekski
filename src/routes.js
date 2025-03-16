@@ -41,7 +41,7 @@
 // Vision UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
+import Billing from "layouts/setting";
 import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -68,7 +68,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Training",
     key: "tables",
     route: "/tables",
     icon: <IoStatsChart size="15px" color="inherit" />,
@@ -77,50 +77,34 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
-    key: "billing",
-    route: "/billing",
-    icon: <BsCreditCardFill size="15px" color="inherit" />,
+    name: "Settings",
+    key: "setting",
+    route: "/setting",
+    icon: <IoBuild size="15px" color="inherit" />,
     component: Billing,
     noCollapse: true,
   },
+
   {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    route: "/rtl",
-    icon: <IoBuild size="15px" color="inherit" />,
-    component: RTL,
-    noCollapse: true,
-  },
-  { type: "title", title: "Account Pages", key: "account-pages" },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <BsFillPersonFill size="15px" color="inherit" />,
-    component: Profile,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
+    type: "component",
+    name: "SignIn",
     key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: <IoIosDocument size="15px" color="inherit" />,
+    route: "/sign-in",
+    icon: <IoBuild size="15px" color="inherit" />,
     component: SignIn,
     noCollapse: true,
   },
+
   {
-    type: "collapse",
-    name: "Sign Up",
+    type: "component",
+    name: "SignUp",
     key: "sign-up",
-    route: "/authentication/sign-up",
-    icon: <IoRocketSharp size="15px" color="inherit" />,
+    route: "/sign-up",
+    icon: <IoBuild size="15px" color="inherit" />,
     component: SignUp,
     noCollapse: true,
   },
+
 ];
 
 export default routes;

@@ -15,7 +15,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 
@@ -23,18 +22,18 @@ class BarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chartData: [],
-      chartOptions: {},
+      chartData: props.barChartData || [{ name: "No Data", data: [] }], // Ensure valid default
+      chartOptions: props.barChartOptions || {},
     };
   }
 
-  componentDidMount() {
-    const { barChartData, barChartOptions } = this.props;
-
-    this.setState({
-      chartData: barChartData,
-      chartOptions: barChartOptions,
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.barChartData !== this.props.barChartData || prevProps.barChartOptions !== this.props.barChartOptions) {
+      this.setState({
+        chartData: this.props.barChartData || [{ name: "No Data", data: [] }],
+        chartOptions: this.props.barChartOptions || {},
+      });
+    }
   }
 
   render() {
